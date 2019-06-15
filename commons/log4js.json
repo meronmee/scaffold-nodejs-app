@@ -1,0 +1,15 @@
+{
+  "appenders": [
+		{ 
+			"type": "console",
+			"category": "dev"
+		},
+    {
+			"type": "dateFile",
+			"filename": "app.log",
+			"pattern": "-yyyy-MM-dd",
+			"alwaysIncludePattern": false,
+			"category": "prod"
+		}
+  ]
+}

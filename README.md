@@ -1,0 +1,1 @@
+demo-cli 脚手架 mini app 模版
