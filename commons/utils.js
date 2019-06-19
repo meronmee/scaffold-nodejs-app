@@ -1,11 +1,10 @@
 /**
  * 工具类库
- */ 
-var fs = require('fs');
-var sys = require('sys'); 
+ */  
 var _ = require('underscore');
  
 var log = require('./logger');
+var fs = require('fs');
  
 var Utils = {
 	//取得字符串的实际长度，一个汉字两个字符
@@ -241,8 +240,71 @@ var Utils = {
 		} else {
 			return paramIn;
 		}		
-	},
+	}
 
+/**
+	   * 左补位
+	   * @param  {[type]} obj     [description]
+	   * @param  {[type]} len     [description]
+	   * @param  {[type]} padding [description]
+	   * @return {[type]}         [description]
+	   */
+     ,leftPad: function(obj, len, padding){
+		    return this.strPad(obj, len, padding, true);		
+     }
+	  /**
+	   * 右补位
+	   * @param  {[type]} obj     [description]
+	   * @param  {[type]} len     [description]
+	   * @param  {[type]} padding [description]
+	   * @return {[type]}         [description]
+	   */
+		,rightPad: function(obj, len, padding){
+			return this.strPad(obj, len, padding, false);		
+		}
+	  /**
+	   * 补位
+	   * @param  {[type]} obj     [description]
+	   * @param  {[type]} len     [description]
+	   * @param  {[type]} padding [description]
+	   * @param  {[type]} left    [description]
+	   * @return {[type]}         [description]
+	   */
+		,strPad: function(obj, len, padding, left){
+			var str = obj==null||obj==undefined? "" : obj+"";
+			
+			var diff = len - str.length;
+			if(diff <= 0){
+				return str;
+			}
+			
+			var sb = '';
+			for(var i=0; i<diff; i++){
+				sb += padding;
+			}
+			
+			if(left){
+				return sb+''+str;
+			} else {
+				return str+''+sb;
+			}		
+		},
+		deleteDir: function(path) {
+			var that = this;
+			var files = [];
+			if( fs.existsSync(path) ) {
+				files = fs.readdirSync(path);
+				files.forEach(function(file,index){
+					var curPath = path + "/" + file;
+					if(fs.statSync(curPath).isDirectory()) { // recurse
+						that.deleteDir(curPath);
+					} else { // delete file
+						fs.unlinkSync(curPath);
+					}
+				});
+				fs.rmdirSync(path);
+			}
+		},
 	noop: function(){
 	}
 };

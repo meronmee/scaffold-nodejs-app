@@ -1,3 +1,3 @@
 module.exports = {
-	xxx: "yyy"
+	"xxx": "yyy"
 };

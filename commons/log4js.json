@@ -1,15 +1,19 @@
 {
-  "appenders": [
-		{ 
-			"type": "console",
-			"category": "dev"
-		},
-    {
-			"type": "dateFile",
-			"filename": "app.log",
-			"pattern": "-yyyy-MM-dd",
-			"alwaysIncludePattern": false,
-			"category": "prod"
-		}
-  ]
+  "appenders": { 
+      "console": { 
+        "type": "console",
+        "pattern": "[%d{yyyy-MM-dd hh:mm:ss.SSS}][%p][%z]%f:%l - %m"
+      },
+      "file": {
+        "type": "dateFile",
+        "filename": "app.log",
+        "pattern": "[%d{yyyy-MM-dd hh:mm:ss.SSS}][%p][%z]%f:%l - %m",
+        "alwaysIncludePattern": false 
+      }
+    },
+    "categories": {
+      "default": { "appenders": ["console", "file" ], "level": "INFO", "enableCallStack":true},
+      "dev": { "appenders": ["console", "file" ], "level": "DEBUG", "enableCallStack":true},
+      "prod": { "appenders": [ "file"], "level": "INFO", "enableCallStack":true}
+    } 
 }
